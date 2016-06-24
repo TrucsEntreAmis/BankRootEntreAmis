@@ -11,7 +11,7 @@ Install
 ---
 
 - git clone https://github.com/TrucsEntreAmis/BankRootEntreAmis
-- npm install -g ionic
+- npm install -g cordova ionic (sudo it on posix OS)
 - npn install
 
 Configure project for your platform
