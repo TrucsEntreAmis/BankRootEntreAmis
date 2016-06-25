@@ -4,34 +4,33 @@ angular.module('starter.controllers')
 
     $log.debug('ExpensesCtrl..');
 
-    $scope.expenses = FactoryAppData.load();
-    $scope.title = 'dsfkjsqdhlkjfhdslkjfhdsqkjfh';
+    $scope.expenses = FactoryAppData.load(); //TODO for expenses !!!!!!!!
 
+    $scope.project = FactoryAppData.newProject('Nouveau project');
 
 
     // Remove a expense from project
-    $scope.remove = function(key){
+    $scope.delete = function(key){
 
         $log.debug('remove '+key);
 
-        delete $scope.test[key];
+        FactoryAppData.deleteProject(key);
 
         $log.debug($scope.test);
 
-        //TODO
+        //TODO remove expense
 
     }
     
     $scope.create = function(){
 
-        $log.debug('newProject..');
+        $log.debug('create..');
 
-        var newProject = FactoryAppData.newProject($scope.title);
-        $log.debug($scope);
+        $log.debug($scope.project.title);
 
-        FactoryAppData.addProject(newProject);
+        FactoryAppData.addProject($scope.project);
 
-        //TODO
+        //TODO add a expense
 
     }
 
