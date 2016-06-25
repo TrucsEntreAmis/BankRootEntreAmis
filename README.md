@@ -25,3 +25,4 @@ Test and debug on local browser
 Build package on ./platforms/[browser|android|ios]
 ---
 - ionic build [browser|android|ios]
+
