@@ -1,37 +1,11 @@
 angular.module('starter.controllers')
 
-.controller('ExpensesCtrl', function($scope, $log, $rootScope) {
+.controller('ExpensesCtrl', function($scope, $log, $rootScope, FactoryAppData) {
 
     $log.debug('ExpensesCtrl..');
 
-    $scope.expenses =
-        [
-            {
-                id: 0,
-                name: 'depense 1'
-            },
-            {
-                id: 1,
-                name: 'depense 2'
-            },
-            {
-                id: 2,
-                name: 'depense 3'
-            },
-            {
-                id: 3,
-                name: 'depense 4'
-            }
-        ];
-
-
-    $scope.test = {
-        1: 'toto',
-        5: 'marcel',
-        8: 'fanch'
-    };
-
-
+    $scope.expenses = FactoryAppData.load();
+    $scope.title = 'dsfkjsqdhlkjfhdslkjfhdsqkjfh';
 
 
 
@@ -43,6 +17,19 @@ angular.module('starter.controllers')
         delete $scope.test[key];
 
         $log.debug($scope.test);
+
+        //TODO
+
+    }
+    
+    $scope.create = function(){
+
+        $log.debug('newProject..');
+
+        var newProject = FactoryAppData.newProject($scope.title);
+        $log.debug($scope);
+
+        FactoryAppData.addProject(newProject);
 
         //TODO
 
