@@ -1,0 +1,11 @@
+<ion-view view-title="Expenses">
+  <ion-content>
+    <h1>List</h1>
+    <ul ng-repeat="expense in expenses">
+      <li><a href="#/app/expense/edit/{{expense.id}}">{{expense.name}}</a></li>
+    </ul>
+
+    <a ng-repeat="(key, val) in test" ng-click="remove(key)">{{key}} - {{val}} / </a>
+
+  </ion-content>
+</ion-view>
