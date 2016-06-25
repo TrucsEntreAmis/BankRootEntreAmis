@@ -1,11 +1,42 @@
-<ion-view view-title="Expenses">
+<ion-view view-title="Dépenses">
   <ion-content>
-    <h1>List</h1>
+
+
+
+    <div>sdfhdskfhsdkjlfkdshfdsjlkf</div>
+
+
+    <form>
+
+        <label class="item item-input">
+          <span class="input-label">Titre</span>
+          <input type="text" ng-model="title">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Date</span>
+          <input type="date" ng-model="date">
+        </label>
+
+        <button class="button" ng-click="create()">
+          Créer
+        </button>
+
+    </form>
+
+    {{expensesctrl.title}} /
+    {{title}}
+
+    <br/>
+    {{expenses}}
+
+    <br/>
+
     <ul ng-repeat="expense in expenses">
-      <li><a href="#/app/expense/edit/{{expense.id}}">{{expense.name}}</a></li>
+      <li><a href="#/app/expense/edit/{{expense.id}}">{{expense.title}}</a></li>
     </ul>
 
-    <a ng-repeat="(key, val) in test" ng-click="remove(key)">{{key}} - {{val}} / </a>
+
 
   </ion-content>
 </ion-view>

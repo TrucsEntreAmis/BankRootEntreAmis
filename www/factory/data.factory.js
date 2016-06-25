@@ -9,7 +9,7 @@ angular.module('starter')
  * from local storage, and also lets us save and load the
  * last active project index.
  */
-    .factory('Projects', function( $rootScope) {
+    .factory('FactoryAppData', function( $rootScope) {
         return {
             load: function() {
                 var projectString = window.localStorage['appData'];
@@ -18,8 +18,9 @@ angular.module('starter')
                 }
                 else
                 {
+                    $rootScope.appData = {};
                     $rootScope.appData.projectIndex = 0;
-                    $rootScope.appData.projects = [];
+                    $rootScope.appData.projects = {};
                 }
                 return $rootScope.appData.projects;
             },
@@ -36,7 +37,7 @@ angular.module('starter')
                 // Add a new project
                 return {
                     title: projectTitle,
-                    date : time(),
+                    date : Date.now(),
                     participantIndex: 0,
                     participants: [],
                     expensesIndex: 0,
@@ -46,12 +47,12 @@ angular.module('starter')
             addProject:function(project)
             {
                 $rootScope.appData.projects[$rootScope.appData.projectIndex] = project;
-                $rootScope.projectIndex += 1;
-                save();
+                $rootScope.appData.projectIndex += 1;
+                this.save();
             },
             deleteProject:function (id) {
                 delete $rootScope.appData.projects[id];
-                save();
+                this.save();
             },
             createParticipant: function() {
                 // Add a new project
@@ -64,7 +65,7 @@ angular.module('starter')
                 id = $rootScope.appData.projects[projectId].participantIndex;
                 $rootScope.appData.projects[projectId].participants[id] = participant;
                 $rootScope.appData.projects[projectId].participantIndex = id+1;
-                save();
+                this.save();
             }
         }
     });
