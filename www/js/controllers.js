@@ -50,10 +50,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, $rootScope) {
-
+.controller('PlaylistsCtrl', function($scope, $log) {
+  $log.debug('PlaylistsCtrl..');
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams, $rootScope) {
   $scope.playlistName = $rootScope.playlists[$stateParams.playlistId].title;
-});
+})
+
+;
