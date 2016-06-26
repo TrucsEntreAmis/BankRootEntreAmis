@@ -1,37 +1,27 @@
 angular.module('bankroot')
 
-.controller('ExpensesCtrl', function($scope, $log, $rootScope, FactoryAppData) {
+    .controller('ExpensesCtrl', function($scope, $log, $rootScope, FactoryAppData) {
 
-    $log.debug('ExpensesCtrl..');
+        $log.debug('ExpensesCtrl..');
 
-    $scope.expenses = FactoryAppData.load(); //TODO for expenses !!!!!!!!
+        $scope.expenses = FactoryAppData.load();
+        $scope.project = FactoryAppData.newProject('Nouveau project');
+        
+        // Remove a expense from project
+        $scope.delete = function(key){
 
-    $scope.project = FactoryAppData.newProject('Nouveau project');
+            $log.debug('remove '+key);
+            FactoryAppData.deleteProject(key);
+            $log.debug($scope.test);
 
+        }
 
-    // Remove a expense from project
-    $scope.delete = function(key){
+        $scope.create = function(){
 
-        $log.debug('remove '+key);
+            $log.debug('create..');
+            $log.debug($scope.project.title);
+            FactoryAppData.addProject($scope.project);
+            
+        }
 
-        FactoryAppData.deleteProject(key);
-
-        $log.debug($scope.test);
-
-        //TODO remove expense
-
-    }
-    
-    $scope.create = function(){
-
-        $log.debug('create..');
-
-        $log.debug($scope.project.title);
-
-        FactoryAppData.addProject($scope.project);
-
-        //TODO add a expense
-
-    }
-
-})
+    });
