@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('bankroot')
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

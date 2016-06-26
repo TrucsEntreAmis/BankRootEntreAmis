@@ -1,4 +1,4 @@
-angular.module('starter')
+angular.module('bankroot')
 
 .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
