@@ -33,6 +33,12 @@ angular.module('bankroot')
             setLastActiveIndex: function(index) {
                 window.localStorage['lastActiveProject'] = index;
             },
+            getProjects: function() {
+                return $rootScope.appData.projects;
+            },
+            getProject: function(id) {
+                return $rootScope.appData.projects[id];
+            },
             newProject: function(projectTitle) {
                 // Add a new project
                 return {
@@ -46,9 +52,11 @@ angular.module('bankroot')
             },
             addProject:function(project)
             {
-                $rootScope.appData.projects[$rootScope.appData.projectIndex] = project;
+                var projectId = $rootScope.appData.projectIndex;
+                $rootScope.appData.projects[projectId] = project;
                 $rootScope.appData.projectIndex += 1;
                 this.save();
+                return projectId;
             },
             deleteProject:function (id) {
                 delete $rootScope.appData.projects[id];

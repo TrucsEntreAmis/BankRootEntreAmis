@@ -1,0 +1,24 @@
+<ion-view view-title="{{pageTitle}}">
+    <ion-content>
+
+
+        <label class="item item-input">
+            <span class="input-label">Titre</span>
+            <input type="text" ng-model="project.title">
+        </label>
+
+        <h3>Place options for this project</h3>
+
+        <button class="button" ng-show="projectId !== undefined" ng-click="deleteProject(project)">
+            Supprimer
+        </button>
+        <button class="button" ng-show="projectId !== undefined" ng-click="updateProject(project)">
+            Mettre à jour
+        </button>
+        <button class="button" ng-show="projectId === undefined" ng-click="createProject(project)">
+            Créer
+        </button>
+
+
+    </ion-content>
+</ion-view>
