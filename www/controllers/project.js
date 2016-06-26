@@ -1,69 +1,69 @@
 angular.module('bankroot')
 
-.controller('ProjectCtrl', function($scope, $log, FactoryAppData, $stateParams, $state, $location, $ionicHistory) {
+    .controller('ProjectCtrl', function($scope, $log, FactoryAppData, $stateParams, $state, $location, $ionicHistory) {
 
-    $log.debug('ProjectCtrl..');
-    $log.debug($stateParams);
+        $log.debug('ProjectCtrl..');
+        $log.debug($stateParams);
 
-    $scope.projects = FactoryAppData.getProjects();
-    
-    if( $stateParams.projectId !== undefined ){
-        //Get project object
-        $scope.project = FactoryAppData.getProject($stateParams.projectId);
-        $scope.projectId = $stateParams.projectId;
-        $scope.pageTitle = 'Modifier le projet '+$scope.project.title;
-    }else{
-        //Instanciate a new project
-        $scope.project = FactoryAppData.newProject('Nouveau project');
-        delete $scope.projectId;
-        $scope.pageTitle = 'Nouveau projet ';
-    }
-    
+        $scope.projects = FactoryAppData.getProjects();
 
+        if( $stateParams.projectId !== undefined ){
+            //Get project object
+            $scope.project = FactoryAppData.getProject($stateParams.projectId);
+            $scope.projectId = $stateParams.projectId;
+            $scope.pageTitle = 'Modifier le projet '+$scope.project.title;
+        }else{
+            //Instanciate a new project
+            $scope.project = FactoryAppData.newProject('Nouveau project');
+            delete $scope.projectId;
+            $scope.pageTitle = 'Nouveau projet ';
+        }
 
 
-    // Remove a project
-    $scope.deleteProject = function(){
 
-        $log.debug('deleteProject..');
 
-        FactoryAppData.deleteProject($scope.projectId);
-        FactoryAppData.save();
+        // Remove a project
+        $scope.deleteProject = function(){
 
-        $ionicHistory.nextViewOptions({
-            disableBack: true
-        });
-        $state.go('app.projectnew');
+            $log.debug('deleteProject..');
 
-    };
+            FactoryAppData.deleteProject($scope.projectId);
+            FactoryAppData.save();
 
-    // Create a project
-    $scope.createProject = function(){
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('app.projectnew');
 
-        $log.debug('createProject..');
+        };
 
-        //Send project to storage
-        var projectId = FactoryAppData.addProject($scope.project);
+        // Create a project
+        $scope.createProject = function(){
 
-        $ionicHistory.nextViewOptions({
-            disableBack: true
-        });
-        $state.go('app.projectedit', {projectId: projectId});
+            $log.debug('createProject..');
 
-    };
+            //Send project to storage
+            var projectId = FactoryAppData.addProject($scope.project);
 
-    // Update a project
-    $scope.updateProject = function(){
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('app.projectedit', {projectId: projectId});
 
-        $log.debug('updateProject..');
+        };
 
-        //Send project to storage
-        FactoryAppData.save();
+        // Update a project
+        $scope.updateProject = function(){
 
-        $ionicHistory.nextViewOptions({
-            disableBack: true
-        });
-        $state.go('app.projectedit', {projectId: $scope.projectId});
-    };
+            $log.debug('updateProject..');
 
-});
+            //Send project to storage
+            FactoryAppData.save();
+
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('app.projectedit', {projectId: $scope.projectId});
+        };
+
+    });
