@@ -1,6 +1,10 @@
 BankRootEntreAmis
 ===
 
+
+[![Jenkins build status](https://jenkins.qth.fr/job/Validate_BankRootEntreAmis/badge/icon)](https://jenkins.qth.fr/job/Validate_NetMap)
+[![Jenkins build status](https://sonar.qth.fr/api/badges/gate?key=tea:js-bankroot)](https://sonar.qth.fr/overview?id=4238)
+
 Description
 ---
 
