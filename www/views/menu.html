@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
   <ion-side-menu-content>
     <ion-nav-bar class="bar-stable">
       <ion-nav-back-button>
@@ -14,15 +14,21 @@
 
   <ion-side-menu side="left">
     <ion-header-bar class="bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Projets</h1>
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()">
+        <ion-item menu-close ng-click="login()" ng-show="false">
           Login
         </ion-item>
-        <ion-item menu-close href="#/app/expenses">
-          Dépenses
+        <ion-item menu-close href="#/app/project/{{projectId}}/edit" ng-repeat="(projectId, project) in projects">
+          {{project.title}}
+        </ion-item>
+        <ion-item menu-close href="#/app/project/new">
+          Créer un nouveau project
+        </ion-item>
+        <ion-item menu-close href="#/app/parameters">
+          Options
         </ion-item>
       </ion-list>
     </ion-content>

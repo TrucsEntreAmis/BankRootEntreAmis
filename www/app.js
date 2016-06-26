@@ -1,6 +1,6 @@
 angular.module('bankroot', ['ionic'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, FactoryAppData, $rootScope) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -11,6 +11,9 @@ angular.module('bankroot', ['ionic'])
 
   // Form data for the login modal
   $scope.loginData = {};
+
+  //$scope.projects = FactoryAppData.getProjects();
+  $scope.projects = $rootScope.appData.projects;
 
   // Create the login modal that we will use later
   $ionicModal.fromTemplateUrl('views/login.html', {
