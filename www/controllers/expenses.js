@@ -1,4 +1,4 @@
-angular.module('starter.controllers')
+angular.module('bankroot')
 
 .controller('ExpensesCtrl', function($scope, $log, $rootScope, FactoryAppData) {
 
