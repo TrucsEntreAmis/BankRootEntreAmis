@@ -9,6 +9,25 @@
 
         <h3>Place options for this project</h3>
 
+        <div>
+            <div ng-repeat="(participantId,participant) in project.participants">
+                <div>
+                    <input type="text" ng-model="participant.name"/>
+                </div>
+                <div>
+                    <input type="number" ng-model="participant.defaultShare"/>
+                </div>
+                <button class="button" ng-click="project.deleteParticipant(participantId)">
+                    Supprimer
+                </button>
+            </div>
+        </div>
+
+        <button class="button" ng-show="projectId !== undefined" ng-click="addParticipant()">
+            Ajouter Participant
+        </button>
+
+
         <button class="button" ng-show="projectId !== undefined" ng-click="deleteProject(project)">
             Supprimer
         </button>

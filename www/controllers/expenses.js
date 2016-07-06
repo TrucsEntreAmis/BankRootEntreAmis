@@ -5,7 +5,7 @@ angular.module('bankroot')
         $log.debug('ExpensesCtrl..');
 
         $scope.expenses = FactoryAppData.load();
-        $scope.project = FactoryAppData.newProject('Nouveau project');
+        $scope.project = FactoryAppData.createProject('Nouveau project');
         
         // Remove a expense from project
         $scope.delete = function(key){

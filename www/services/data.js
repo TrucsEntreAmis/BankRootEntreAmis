@@ -39,17 +39,6 @@ angular.module('bankroot')
             getProject: function(id) {
                 return $rootScope.appData.projects[id];
             },
-            newProject: function(projectTitle) {
-                // Add a new project
-                return {
-                    title: projectTitle,
-                    date : Date.now(),
-                    participantIndex: 0,
-                    participants: [],
-                    expensesIndex: 0,
-                    expenses: []
-                };
-            },
             addProject:function(project)
             {
                 var projectId = $rootScope.appData.projectIndex;
@@ -60,19 +49,6 @@ angular.module('bankroot')
             },
             deleteProject:function (id) {
                 delete $rootScope.appData.projects[id];
-                this.save();
-            },
-            createParticipant: function() {
-                // Add a new project
-                return {
-                    name: "no name",
-                    defaultShare : 1
-                };
-            },
-            AddParticipantToProject: function (projectId, participant) {
-                id = $rootScope.appData.projects[projectId].participantIndex;
-                $rootScope.appData.projects[projectId].participants[id] = participant;
-                $rootScope.appData.projects[projectId].participantIndex = id+1;
                 this.save();
             }
         }

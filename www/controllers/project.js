@@ -1,6 +1,6 @@
 angular.module('bankroot')
 
-    .controller('ProjectCtrl', function($scope, $log, FactoryAppData, $stateParams, $state, $location, $ionicHistory) {
+    .controller('ProjectCtrl', function($scope, $log, FactoryAppData, FactoryProject,FactoryParticant, $stateParams, $state, $location, $ionicHistory) {
 
         $log.debug('ProjectCtrl..');
         $log.debug($stateParams);
@@ -14,7 +14,7 @@ angular.module('bankroot')
             $scope.pageTitle = 'Modifier le projet '+$scope.project.title;
         }else{
             //Instanciate a new project
-            $scope.project = FactoryAppData.newProject('Nouveau project');
+            $scope.project = FactoryProject.createProject('Nouveau project');
             delete $scope.projectId;
             $scope.pageTitle = 'Nouveau projet ';
         }
@@ -64,6 +64,29 @@ angular.module('bankroot')
                 disableBack: true
             });
             $state.go('app.projectedit', {projectId: $scope.projectId});
+        };
+
+        // Add Participant to theproject
+        $scope.addParticipant = function(){
+
+            $log.debug('addParticipant..');
+            $log.debug( $scope.project);
+            newParticipant = FactoryParticant.createParticipant("Bob");
+            $scope.project.addParticipant(newParticipant);
+
+            //Send project to storage
+            FactoryAppData.save();
+        };
+
+        // Add Participant to theproject
+        $scope.deleteParticipant = function(participantId){
+
+            $log.debug('deleteParticipant..');
+
+            $scope.project.deleteParticipant(participantId);
+
+            //Send project to storage
+            FactoryAppData.save();
         };
 
     });
