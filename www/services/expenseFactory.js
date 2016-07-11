@@ -35,7 +35,19 @@ angular.module('bankroot')
                         delete this.beneficiaires[id];
                     }
                 };
+            },
+            createExpenseFromData:  function(data) {
+                // Add a new project
+                newExpense = createExpense();
+                newExpense.title = data.title;
+                newExpense.date = data.date;
+                newExpense.payeurs = data.payeurs;
+                newExpense.beneficiaires = data.beneficiaires;
+
+                return newExpense;
+
             }
+
 
         }
     });
