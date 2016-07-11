@@ -9,12 +9,22 @@ angular.module('bankroot')
  * from local storage, and also lets us save and load the
  * last active project index.
  */
-    .factory('FactoryAppData', function( $rootScope) {
+    .factory('FactoryAppData', function( $rootScope, FactoryProject) {
         return {
             load: function() {
                 var projectString = window.localStorage['appData'];
                 if(projectString) {
-                    $rootScope.appData = angular.fromJson(projectString);
+                    //$rootScope.appData = angular.fromJson(projectString);
+
+                    data = angular.fromJson(projectString);
+                    $rootScope.appData = {};
+                    $rootScope.appData.projectIndex = data.projectIndex;
+                    $rootScope.appData.projects = {};
+                    
+                    angular.forEach(data.projects, function(value, key) {
+                        $rootScope.appData.projects[key] = FactoryProject.createProjectFromData(value) ;
+                    });
+                    
                 }
                 else
                 {

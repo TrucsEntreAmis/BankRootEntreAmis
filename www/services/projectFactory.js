@@ -8,7 +8,7 @@ angular.module('bankroot')
  * from local storage, and also lets us save and load the
  * last active project index.
  */
-    .factory('FactoryProject', function() {
+    .factory('FactoryProject', function(FactoryExpense) {
         return {
 
             createProject: function(projectTitle) {
@@ -20,7 +20,6 @@ angular.module('bankroot')
                     participants: [],
                     expensesIndex: 0,
                     expenses: [],
-                    bou: 123,
                     addParticipant: function ( participant) {
                         id = this.participantIndex;
                         this.participants[id] = participant;
@@ -40,6 +39,21 @@ angular.module('bankroot')
 
 
                 };
+            },
+            createProjectFromData: function(data) {
+
+                newProject = this.createProject(data.title);
+                newProject.date = data.date;
+                newProject.participantIndex = data.participantIndex;
+                newProject.participants = data.participants;
+                newProject.expensesIndex = data.expensesIndex;
+                //newProject.expenses = data.expenses;
+
+                angular.forEach(data.expenses, function(value, key) {
+                    newProject.expenses[key] = FactoryExpense.createExpenseFromData(value) ;
+                });
+
+                return newProject;
             }
 
         }
