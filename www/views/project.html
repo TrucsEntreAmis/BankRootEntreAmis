@@ -4,29 +4,37 @@
 
         <label class="item item-input">
             <span class="input-label">Titre</span>
-            <input type="text" ng-model="project.title">
+            <input type="text" ng-model="project.name">
         </label>
 
-        <h3>Place options for this project</h3>
-
-        <div>
-            <div ng-repeat="(participantId,participant) in project.participants">
-                <div>
-                    <input type="text" ng-model="participant.name"/>
+        <div class="members" ng-show="projectId !== undefined">
+            <h3>Participants</h3>
+            <div>
+                <div ng-repeat="(memberId,member) in project.members">
+                    <label class="item item-input">
+                        <span class="input-label">Nom</span>
+                        <input type="text" ng-model="member.name">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Parts</span>
+                        <input type="number" ng-model="member.defaultShare">
+                    </label>
+                    <button class="button" ng-click="project.removeMember(memberId)">
+                        Supprimer
+                    </button>
                 </div>
-                <div>
-                    <input type="number" ng-model="participant.defaultShare"/>
-                </div>
-                <button class="button" ng-click="project.deleteParticipant(participantId)">
-                    Supprimer
-                </button>
             </div>
+
+            <div>
+
+
+                <button class="button" ng-show="projectId !== undefined" ng-click="addMember()">
+                    Ajouter Participant
+                </button>
+
+            </div>
+
         </div>
-
-        <button class="button" ng-show="projectId !== undefined" ng-click="addParticipant()">
-            Ajouter Participant
-        </button>
-
 
         <button class="button" ng-show="projectId !== undefined" ng-click="deleteProject(project)">
             Supprimer

@@ -1,6 +1,6 @@
 angular.module('bankroot')
 
-.run(function($ionicPlatform, $log, FactoryAppData) {
+.run(function($ionicPlatform, $log, Storage) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -14,10 +14,9 @@ angular.module('bankroot')
             StatusBar.styleDefault();
         }
     });
-
-
+    
     //Load data storage
     $log.debug('Load data storage');
-    FactoryAppData.load();
+    Storage.load();
 
 });

@@ -1,18 +1,16 @@
 angular.module('bankroot')
 
-    .controller('ExpensesCtrl', function($scope, $log, $rootScope, FactoryAppData) {
+    .controller('ExpensesCtrl', function($scope, $log, $rootScope, Storage, Project, Member, Expense) {
 
         $log.debug('ExpensesCtrl..');
 
-        $scope.expenses = FactoryAppData.load();
-        $scope.project = FactoryAppData.createProject('Nouveau project');
+        $scope.project = new Project({name: 'Nouveau project'});
         
         // Remove a expense from project
-        $scope.delete = function(key){
+        $scope.delete = function(expenseId){
 
-            $log.debug('remove '+key);
-            FactoryAppData.deleteProject(key);
-            $log.debug($scope.test);
+            $log.debug('deleteExpense '+expenseId);
+            $scope.project.removeExpenseId(expenseId);
 
         }
 
@@ -20,7 +18,7 @@ angular.module('bankroot')
 
             $log.debug('create..');
             $log.debug($scope.project.title);
-            FactoryAppData.addProject($scope.project);
+            Storage.addProject($scope.project);
             
         }
 

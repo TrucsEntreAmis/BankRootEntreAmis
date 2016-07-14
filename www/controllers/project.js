@@ -1,34 +1,46 @@
 angular.module('bankroot')
 
-    .controller('ProjectCtrl', function($scope, $log, FactoryAppData, FactoryProject,FactoryParticant, $stateParams, $state, $location, $ionicHistory) {
+    .controller('ProjectCtrl', function ($scope, $log, $stateParams, $state, $location, $ionicHistory, Storage, Project, Member, Expense) {
 
         $log.debug('ProjectCtrl..');
-        $log.debug($stateParams);
 
-        $scope.projects = FactoryAppData.getProjects();
+        if ($stateParams.projectId !== undefined) {
+            loadFromProject($stateParams.projectId)
+        } else {
+            loadFromNewProject();
+        }
 
-        if( $stateParams.projectId !== undefined ){
-            //Get project object
-            $scope.project = FactoryAppData.getProject($stateParams.projectId);
-            $scope.projectId = $stateParams.projectId;
-            $scope.pageTitle = 'Modifier le projet '+$scope.project.title;
-        }else{
+        //Display page with data project
+        function loadFromNewProject(){
             //Instanciate a new project
-            $scope.project = FactoryProject.createProject('Nouveau project');
+            $scope.project = new Project();
             delete $scope.projectId;
-            $scope.pageTitle = 'Nouveau projet ';
+            $scope.pageTitle = 'Nouveau projet';
+        }
+
+        //Display page for new project creation
+        function loadFromProject(projectId){
+            //Get project object
+            $scope.project = Storage.getProject(projectId);
+            if($scope.project === undefined){
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go('app.projectnew');
+            }else {
+                $scope.projectId = projectId;
+                $scope.pageTitle = 'Modifier le projet ' + $scope.project.name;
+            }
         }
 
 
-
-
         // Remove a project
-        $scope.deleteProject = function(){
+        $scope.deleteProject = function () {
 
             $log.debug('deleteProject..');
 
-            FactoryAppData.deleteProject($scope.projectId);
-            FactoryAppData.save();
+            Storage.removeProjectId($scope.projectId);
+            Storage.save();
 
             $ionicHistory.nextViewOptions({
                 disableBack: true
@@ -38,55 +50,63 @@ angular.module('bankroot')
         };
 
         // Create a project
-        $scope.createProject = function(){
+        $scope.createProject = function () {
 
             $log.debug('createProject..');
 
             //Send project to storage
-            var projectId = FactoryAppData.addProject($scope.project);
+            var projectId = Storage.addProject($scope.project);
+            Storage.save();
+
+            //Empty this scope for next display
+            loadFromNewProject();
 
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
-            $state.go('app.projectedit', {projectId: projectId});
+
+            //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: false });
+            $state.go('app.projectedit', {projectId: projectId}, {reload: true});
 
         };
 
         // Update a project
-        $scope.updateProject = function(){
+        $scope.updateProject = function () {
 
             $log.debug('updateProject..');
 
             //Send project to storage
-            FactoryAppData.save();
+            Storage.save();
 
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
-            $state.go('app.projectedit', {projectId: $scope.projectId});
+
         };
 
         // Add Participant to theproject
-        $scope.addParticipant = function(){
+        $scope.addMember = function () {
 
-            $log.debug('addParticipant..');
-            $log.debug( $scope.project);
-            newParticipant = FactoryParticant.createParticipant("Bob");
-            $scope.project.addParticipant(newParticipant);
+            $log.debug('addMember..');
 
-            //Send project to storage
-            FactoryAppData.save();
+            $scope.project.addMember(new Member( {name: 'Nom ?', defaultShare: 1} ) );
+
+            $scope.memberName = '';
+            $scope.memberShare = 1;
+
+            Storage.save();
+
         };
 
         // Add Participant to theproject
-        $scope.deleteParticipant = function(participantId){
+        $scope.deleteMember = function (MemberId) {
 
-            $log.debug('deleteParticipant..');
+            $log.debug('deleteMember..');
 
-            $scope.project.deleteParticipant(participantId);
+            $scope.project.removeMemberId(participantId);
 
-            //Send project to storage
-            FactoryAppData.save();
+            Storage.save();
+
         };
 
     });
