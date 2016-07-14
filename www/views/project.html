@@ -7,26 +7,27 @@
             <input type="text" ng-model="project.title">
         </label>
 
-        <h3>Place options for this project</h3>
-
-        <div>
-            <div ng-repeat="(participantId,participant) in project.participants">
-                <div>
-                    <input type="text" ng-model="participant.name"/>
+        <div class="members" ng-show="projectId !== undefined">
+            <h3>Participants</h3>
+            <div>
+                <div ng-repeat="(participantId,participant) in project.participants">
+                    <div>
+                        <input type="text" ng-model="participant.name"/>
+                    </div>
+                    <div>
+                        <input type="number" ng-model="participant.defaultShare"/>
+                    </div>
+                    <button class="button" ng-click="project.deleteParticipant(participantId)">
+                        Supprimer
+                    </button>
                 </div>
-                <div>
-                    <input type="number" ng-model="participant.defaultShare"/>
-                </div>
-                <button class="button" ng-click="project.deleteParticipant(participantId)">
-                    Supprimer
-                </button>
             </div>
+
+            <button class="button" ng-show="projectId !== undefined" ng-click="addParticipant()">
+                Ajouter Participant
+            </button>
+
         </div>
-
-        <button class="button" ng-show="projectId !== undefined" ng-click="addParticipant()">
-            Ajouter Participant
-        </button>
-
 
         <button class="button" ng-show="projectId !== undefined" ng-click="deleteProject(project)">
             Supprimer
