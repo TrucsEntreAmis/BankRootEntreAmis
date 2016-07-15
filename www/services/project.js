@@ -12,28 +12,31 @@
 
         var Project = function (project) {
 
-            this.projectId = undefined;
-            this.members = [];
-            this.expenses = [];
+            this.memberId = 0;
+            this.members = {};
+            this.expenseId = 0;
+            this.expenses = {};
 
             if(project !== undefined){
-                angular.extend(this, project);
+                //angular.extend(this, project);
+                angular.merge(this, project);
+
 
                 //Extend members objects if exists
                 if(project.members !== undefined){
-                    this.members = [];
+                    this.members = {};
                     members = this.members;
-                    angular.forEach(project.members, function(member){
-                        members.push(new Member(member));
+                    angular.forEach(project.members, function(member,id){
+                        members[id] = new Member(member);
                     });
                 }
 
                 //Extend expenses objects if exists
                 if(project.expenses !== undefined){
-                    this.expenses = [];
+                    this.expenses = {};
                     expenses = this.expenses;
-                    angular.forEach(project.expenses, function(expense){
-                        expenses.push(new Expense(expense));
+                    angular.forEach(project.expenses, function(expense,id){
+                        expenses[id] = new Expense(expense);
                     });
                 }
 
@@ -41,32 +44,73 @@
 
         };
 
-        Project.prototype.createFromDatas = function (member) {
-            this.members.push(member);
-        };
 
         Project.prototype.addMember = function (member) {
-            this.members.push(member);
+            this.members[this.memberId] = member;
+            this.memberId++;
         };
 
-        Project.prototype.removeMember = function (member) {
-            this.members.splice( this.members.indexOf(member) );
-        };
 
         Project.prototype.removeMemberId = function (memberId) {
-            delete this.members[memberId];
+            if(memberId in this.members)
+                delete this.members[memberId];
         };
 
         Project.prototype.addExpense = function (expense) {
-            this.members.push(member);
+            this.members[this.expenseId] = expense;
+            this.expenseId++;
         };
 
-        Project.prototype.removeExpense = function (expense) {
-            this.expenses.splice( this.expenses.indexOf(expense) );
-        };
 
         Project.prototype.removeExpenseId = function (expenseId) {
-            delete this.expenses[expenseId];
+            if(expenseId in this.expenses)
+                delete this.expenses[expenseId];
+        };
+
+
+        Project.prototype.getExpensesDetailForMemberId = function (memberId) {
+            var memberDetail = {};
+            memberDetail.debtorIdList = [];
+            memberDetail.recipientIdList = [];
+            angular.forEach(this.expenses, function(expense,id){
+                if(memberId in expense.debtors)
+                {
+                    memberDetail.debtorIdList.push(id);
+                }
+                if(memberId in expense.recipients)
+                {
+                    memberDetail.recipientIdList.push(id);
+                }
+            });
+            return memberDetail;
+        };
+
+        Project.prototype.getAllRecipientExpensesForMemberId = function (memberId) {
+
+            return getExpensesDetailForMemberId(memberId).recipientIdList;
+        };
+
+        Project.prototype.getAllDebtorExpensesForMemberId = function (memberId) {
+            return getExpensesDetailForMemberId(memberId).debtorIdList;
+        };
+
+        Project.prototype.getBalanceForMemberId = function (memberId) {
+            var balanceDetail = {};
+            balanceDetail.totalSpent = 0;
+            balanceDetail.totalReceive = 0;
+
+            var memberDetail = getExpensesDetailForMemberId(memberId);
+
+            angular.forEach(memberDetail.debtorIdList, function(expenseID){
+                balanceDetail.totalSpent += this.expenses[expenseID].debtors[memberId];
+            });
+
+            angular.forEach(memberDetail.recipientIdList, function(expenseID){
+                var v = this.expenses[expenseID].recipients[memberId] * this.expenses[expenseID].totalAmount();
+                balanceDetail.totalReceive += v;
+            });
+
+            return balanceDetail;
         };
 
         return Project;
