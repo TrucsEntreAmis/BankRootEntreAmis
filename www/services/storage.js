@@ -26,6 +26,7 @@ angular.module('bankroot')
 
                 $log.debug("Load data from storage...");
                 $rootScope.projects = {};
+                
 
                 //Foreach project found, instanciate object
                 if (window.localStorage['projects'] !== undefined) {
@@ -74,7 +75,7 @@ angular.module('bankroot')
         };
 
         //Remove a project from id
-        this.removeProjectId= function(project){
+        this.removeProject= function(project){
             this.load();
             $rootScope.projects.splice($rootScope.projects.indexOf(project));
         };

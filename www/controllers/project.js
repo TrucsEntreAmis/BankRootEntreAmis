@@ -99,11 +99,11 @@ angular.module('bankroot')
         };
 
         // Add Participant to theproject
-        $scope.deleteMember = function (MemberId) {
+        $scope.deleteMember = function (memberId) {
 
             $log.debug('deleteMember..');
 
-            $scope.project.removeMemberId(participantId);
+            $scope.project.removeMemberId(memberId);
 
             Storage.save();
 

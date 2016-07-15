@@ -17,7 +17,7 @@ angular.module('bankroot')
             this.defaultShare = 1;
 
             if(member !== undefined){
-                angular.extend(this, member);
+                angular.merge(this, member);
             }
 
 

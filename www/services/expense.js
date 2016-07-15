@@ -40,6 +40,14 @@ angular.module('bankroot')
             delete this.recipients[recipientsId];
         };
 
+        Expense.prototype.totalAmount = function(){
+            var amountValue = 0;
+            angular.forEach(this.debtors,function( amount, debtorId){
+                amountValue += amount;
+            });
+            return amountValue;
+        };
+
         return Expense;
 
     });
