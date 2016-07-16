@@ -27,6 +27,24 @@ angular.module('bankroot')
                 }
             }
         })
+        .state('app.projectNewExpense', {
+            url: '/project/:projectId/newExpense',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/expense.html',
+                    controller: 'ExpenseCtrl'
+                }
+            }
+        })
+        .state('app.projectExpense', {
+            url: '/project/:projectId/expense/:expenseId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'views/expense.html',
+                    controller: 'ExpenseCtrl'
+                }
+            }
+        })
         .state('app.projectexpenses', {
             url: '/project/:projectId/expenses',
             views: {

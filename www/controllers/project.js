@@ -109,4 +109,11 @@ angular.module('bankroot')
 
         };
 
+        // Add Participant to theproject
+        $scope.addExpense = function () {
+
+            $state.go('app.projectNewExpense', {projectId: $scope.projectId}, {reload: true});
+
+        };
+
     });
