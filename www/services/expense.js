@@ -19,7 +19,7 @@ angular.module('bankroot')
             this.recipients = {};
 
             if(expense !== undefined){
-                angular.extend(this, expense);
+                angular.merge(this, expense);
             }
 
         };

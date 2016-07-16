@@ -19,8 +19,8 @@
 
     <br/>
 
-    <ul ng-repeat="(projectId, project) in expenses">
-      <li><a ng-click="delete(projectId)">{{project.title}} - {{project.date | date:'medium'}}</a></li>
+    <ul ng-repeat="(expenseId, expense) in project.expenses">
+      <li><a ng-click="deleteExpense(expenseId)">{{expense.title}} - {{expense.date | date:'medium'}}</a></li>
     </ul>
 
 

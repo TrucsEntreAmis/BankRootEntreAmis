@@ -10,7 +10,7 @@
         <div class="members" ng-show="projectId !== undefined">
             <h3>Participants</h3>
             <div>
-                <div ng-repeat="(memberId,member) in project.members">
+                <div class="row" ng-repeat="(memberId,member) in project.members">
                     <label class="item item-input">
                         <span class="input-label">Nom</span>
                         <input type="text" ng-model="member.name">
@@ -31,11 +31,20 @@
                 <button class="button" ng-show="projectId !== undefined" ng-click="addMember()">
                     Ajouter Participant
                 </button>
+            </div>
+
+            <div>
+                <button class="button" ng-show="projectId !== undefined" ng-click="addExpense()">
+                    Ajouter Une Dépense
+                </button>
+
+                <a class="button" ng-show="projectId !== undefined" href="#/app/project/{{projectId}}/expenses">
+                    Voir les Dépenses
+                </a>
 
             </div>
 
         </div>
-
         <button class="button" ng-show="projectId !== undefined" ng-click="deleteProject(project)">
             Supprimer
         </button>

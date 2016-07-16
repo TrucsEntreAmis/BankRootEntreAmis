@@ -57,7 +57,7 @@
         };
 
         Project.prototype.addExpense = function (expense) {
-            this.members[this.expenseId] = expense;
+            this.expenses[this.expenseId] = expense;
             this.expenseId++;
         };
 

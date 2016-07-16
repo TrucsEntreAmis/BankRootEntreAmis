@@ -1,0 +1,53 @@
+<ion-view view-title="{{pageTitle}}">
+    <ion-content>
+
+
+        <label class="item item-input">
+            <span class="input-label">Titre</span>
+            <input type="text" ng-model="expense.title">
+        </label>
+        <label class="item item-input">
+            <span class="input-label">Data</span>
+            <input type="text" ng-model="expense.date">
+        </label>
+
+        <div class="members">
+            <h3>Participants</h3>
+            <div>
+                <div class="row" ng-repeat="(debtorId,debtor) in expense.debtors">
+                    <label>
+                        {{project.members[debtorId].name}}
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Parts</span>
+                        <input type="number" ng-model="debtor">
+                    </label>
+                    <button class="button" ng-click="expense.removeDebtor(debtorId)">
+                        Supprimer
+                    </button>
+                </div>
+            </div>
+
+            <div>
+
+
+                <button class="button"  ng-click="addMember()">
+                    Ajouter Participant
+                </button>
+
+            </div>
+
+        </div>
+        <button class="button"  ng-click="back()">
+            Annuler
+        </button>
+        <button class="button" ng-click="saveExpense()">
+            Sauvegarder
+        </button>
+        <button class="button" ng-click="saveExpenseAndCreateNew()">
+            Sauvegarder et Nouvelle Dépense
+        </button>
+
+
+    </ion-content>
+</ion-view>
