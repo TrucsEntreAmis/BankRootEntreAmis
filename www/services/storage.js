@@ -11,13 +11,14 @@ angular.module('bankroot')
  */
     .service('Storage', function($rootScope, $log, Project) {
 
-        this.nextProjectId = 0;
+        $rootScope.nextProjectId = 0;
 
         //Load datas from localstorage
         this.format = function() {
             $log.debug('Format data storage');
             window.localStorage['projects'] = angular.toJson({});
-        }
+            window.localStorage['nextProjectId'] = 0;
+        };
         //Load datas from localstorage
         this.load = function(force) {
 
@@ -26,17 +27,15 @@ angular.module('bankroot')
 
                 $log.debug("Load data from storage...");
                 $rootScope.projects = {};
-                
+                $rootScope.nextProjectId = parseInt(window.localStorage['nextProjectId']) || 0;
 
                 //Foreach project found, instanciate object
                 if (window.localStorage['projects'] !== undefined) {
                     var projects = angular.fromJson(window.localStorage['projects']);
-                    var that = this;
-                    $log.debug('Load ' + projects.length + ' projects');
-                    $log.debug(projects);
+                    $log.debug('Load ' + Object.keys(projects).length + ' projects');
                     angular.forEach(projects, function(project){
-                        $rootScope.projects[that.nextProjectId] = new Project(project);
-                        that.nextProjectId += 1;
+                        $rootScope.projects[$rootScope.nextProjectId] = new Project(project);
+                        $rootScope.nextProjectId += 1;
                     });
                 }
 
@@ -46,15 +45,17 @@ angular.module('bankroot')
 
         //save datas
         this.save = function() {
+            $log.debug("Save data to storage...");
             window.localStorage['projects'] = angular.toJson($rootScope.projects);
+            window.localStorage['nextProjectId'] = angular.toJson($rootScope.nextProjectId);
         };
 
         //Add a project
         this.addProject = function(project) {
             this.load();
-            var projectId = this.nextProjectId
+            var projectId = $rootScope.nextProjectId;
             $rootScope.projects[projectId] = project;
-            this.nextProjectId += 1;
+            $rootScope.nextProjectId += 1;
             return projectId;
         };
 
@@ -62,6 +63,10 @@ angular.module('bankroot')
         this.getProjects = function(){
             this.load();
             return $rootScope.projects;
+        };
+
+        this.getProjectCount = function(){
+            return Object.keys($rootScope.projects).length;
         };
 
         //Get a project from id
@@ -72,6 +77,10 @@ angular.module('bankroot')
             }else{
                 return undefined;
             }
+        };
+
+        this.getLastProjectId = function(){
+            return Object.keys($rootScope.projects)[Object.keys($rootScope.projects).length-1];
         };
 
         //Remove a project from id

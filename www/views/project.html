@@ -19,7 +19,7 @@
                         <span class="input-label">Parts</span>
                         <input type="number" ng-model="member.defaultShare">
                     </label>
-                    <button class="button" ng-click="project.removeMember(memberId)">
+                    <button class="button" ng-click="removeMember(memberId)">
                         Supprimer
                     </button>
                 </div>
@@ -38,7 +38,7 @@
                     Ajouter Une Dépense
                 </button>
 
-                <a class="button" ng-show="projectId !== undefined" href="#/app/project/{{projectId}}/expenses">
+                <a class="button" ng-show="projectId !== undefined" ng-click="viewExpenses()">
                     Voir les Dépenses
                 </a>
 

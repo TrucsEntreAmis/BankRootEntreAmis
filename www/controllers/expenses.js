@@ -22,7 +22,19 @@ angular.module('bankroot')
         }
 
 
+        $scope.back = function(){
 
+            $log.debug('back');
+
+            if ($stateParams.expenseId === undefined) {
+                $ionicHistory.nextViewOptions({disableBack: true});
+                $state.go('app.projectedit', {projectId: $scope.projectId}, {reload: true});
+            } else {
+                $ionicHistory.nextViewOptions({disableBack: true});
+                $state.go('app.projectexpenses', {projectId: $scope.projectId}, {reload: true});
+            }
+
+        };
 
         // Remove a expense from project
         $scope.deleteExpense = function(expenseId){
@@ -30,15 +42,24 @@ angular.module('bankroot')
             $log.debug('deleteExpense '+expenseId);
             $scope.project.removeExpenseId(expenseId);
 
-        }
+        };
 
         $scope.createExpense = function(){
 
             $log.debug('createExpense..');
-            $log.debug($scope.project.title);
 
-            $state.go('app.projectNewExpense', {projectId: $scope.projectId}, {reload: true});
+            $ionicHistory.nextViewOptions({disableBack: true});
+            $state.go('app.projectnewexpense', {projectId: $scope.projectId}, {reload: true});
             
-        }
+        };
+
+        $scope.editExpense = function(expenseId){
+
+            $log.debug('editExpense..');
+
+            $ionicHistory.nextViewOptions({disableBack: true});
+            $state.go('app.projectexpense', {projectId: $scope.projectId, expenseId: expenseId}, {reload: true});
+
+        };
 
     });

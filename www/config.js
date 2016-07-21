@@ -27,7 +27,7 @@ angular.module('bankroot')
                 }
             }
         })
-        .state('app.projectNewExpense', {
+        .state('app.projectnewexpense', {
             url: '/project/:projectId/newExpense',
             views: {
                 'menuContent': {
@@ -36,7 +36,7 @@ angular.module('bankroot')
                 }
             }
         })
-        .state('app.projectExpense', {
+        .state('app.projectexpense', {
             url: '/project/:projectId/expense/:expenseId',
             views: {
                 'menuContent': {

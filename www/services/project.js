@@ -56,9 +56,15 @@
                 delete this.members[memberId];
         };
 
-        Project.prototype.addExpense = function (expense) {
-            this.expenses[this.expenseId] = expense;
-            this.expenseId++;
+        Project.prototype.addExpense = function (expense, expenseId) {
+            if(expenseId !== undefined) {
+                //Update a existant expense
+                this.expenses[expenseId] = expense;
+            }else{
+                //Add a new expense and increment id
+                this.expenses[this.expenseId] = expense;
+                this.expenseId++;
+            }
         };
 
 
