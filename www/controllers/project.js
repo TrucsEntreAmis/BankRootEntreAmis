@@ -23,10 +23,17 @@ angular.module('bankroot')
             //Get project object
             $scope.project = Storage.getProject(projectId);
             if($scope.project === undefined){
-                $ionicHistory.nextViewOptions({
-                    disableBack: true
-                });
-                $state.go('app.projectnew');
+
+                //Redirect on form new project or on once project
+                if(Storage.getProjectCount() === 1){
+                    var lastProjectId = Storage.getLastProjectId();
+
+                    $ionicHistory.nextViewOptions({disableBack: true});
+                    $state.go('app.projectedit', {projectId: lastProjectId}, {reload: true});
+                }else{
+                    $ionicHistory.nextViewOptions({disableBack: true});
+                    $state.go('app.projectnew');
+                }
             }else {
                 $scope.projectId = projectId;
                 $scope.pageTitle = 'Modifier le projet ' + $scope.project.name;
@@ -42,9 +49,7 @@ angular.module('bankroot')
             Storage.removeProjectId($scope.projectId);
             Storage.save();
 
-            $ionicHistory.nextViewOptions({
-                disableBack: true
-            });
+            $ionicHistory.nextViewOptions({disableBack: true});
             $state.go('app.projectnew');
 
         };
@@ -61,11 +66,7 @@ angular.module('bankroot')
             //Empty this scope for next display
             loadFromNewProject();
 
-            $ionicHistory.nextViewOptions({
-                disableBack: true
-            });
-
-            //$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: false });
+            $ionicHistory.nextViewOptions({disableBack: true});
             $state.go('app.projectedit', {projectId: projectId}, {reload: true});
 
         };
@@ -78,9 +79,7 @@ angular.module('bankroot')
             //Send project to storage
             Storage.save();
 
-            $ionicHistory.nextViewOptions({
-                disableBack: true
-            });
+            $ionicHistory.nextViewOptions({disableBack: true});
 
         };
 
@@ -99,7 +98,7 @@ angular.module('bankroot')
         };
 
         // Add Participant to theproject
-        $scope.deleteMember = function (memberId) {
+        $scope.removeMember = function (memberId) {
 
             $log.debug('deleteMember..');
 
@@ -112,7 +111,16 @@ angular.module('bankroot')
         // Add Participant to theproject
         $scope.addExpense = function () {
 
-            $state.go('app.projectNewExpense', {projectId: $scope.projectId}, {reload: true});
+            $ionicHistory.nextViewOptions({disableBack: true});
+            $state.go('app.projectnewexpense', {projectId: $scope.projectId}, {reload: true});
+
+        };
+
+        // View all expenses of project
+        $scope.viewExpenses = function () {
+
+            $ionicHistory.nextViewOptions({disableBack: true});
+            $state.go('app.projectexpenses', {projectId: $scope.projectId}, {reload: true});
 
         };
 

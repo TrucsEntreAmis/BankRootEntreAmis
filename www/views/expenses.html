@@ -1,29 +1,13 @@
 <ion-view view-title="Dépenses">
   <ion-content>
 
-
-    <form ng-submit="create()">
-
-        <label class="item item-input">
-          <span class="input-label">Titre</span>
-          <input type="text" ng-model="project.title">
-        </label>
-
-
-        <button class="button" type="submit">
-          Créer
-        </button>
-
-    </form>
-
-
-    <br/>
-
     <ul ng-repeat="(expenseId, expense) in project.expenses">
-      <li><a ng-click="deleteExpense(expenseId)">{{expense.title}} - {{expense.date | date:'medium'}}</a></li>
+      <li><a ng-click="editExpense(expenseId)">{{expense.title}} - {{expense.date | date:'medium'}}</a> <a ng-click="deleteExpense(expenseId)">X</a></a></li>
     </ul>
 
-
+      <button class="button"  ng-click="back()">
+          Annuler
+      </button>
 
   </ion-content>
 </ion-view>

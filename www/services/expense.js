@@ -14,7 +14,7 @@ angular.module('bankroot')
         var Expense = function(expense){
 
             this.title = '';
-            this.date = Date.now();
+            this.date = ''; //Date.now(); //TODO fix date picker and this storage format in JS
             this.debtors = {};
             this.recipients = {};
 

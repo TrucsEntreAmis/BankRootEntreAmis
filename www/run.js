@@ -14,7 +14,8 @@ angular.module('bankroot')
             StatusBar.styleDefault();
         }
     });
-    
+
+
     //Load data storage
     $log.debug('Load data storage');
     Storage.load();
